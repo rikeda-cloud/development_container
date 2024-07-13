@@ -1,48 +1,29 @@
 ---- AUTO SAVE
 lvim.format_on_save.enabled = true
 
----- LEADER
-vim.api.nvim_set_keymap('n', '<Space>', '<NOP>', { noremap = true, silent = true })
-vim.g.mapleader = ' '
-
 ---- KEYMAP
-vim.api.nvim_set_keymap('n', 'qq', ':q!<CR>', { noremap = true })
-vim.api.nvim_set_keymap('i', 'jj', '<ESC>', { noremap = true })
-vim.api.nvim_set_keymap('n', 'DD', ':%d<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', 'U', '<C-r>', { noremap = true })
-vim.api.nvim_set_keymap('i', '<C-t>', '<Tab>', { noremap = true })
-
-vim.api.nvim_set_keymap('n', '<S-k>', ':m -2<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<S-j>', ':m +1<CR>', { noremap = true })
-
-vim.api.nvim_set_keymap('n', '+', '<C-a>', { noremap = true })
-vim.api.nvim_set_keymap('n', '-', '<C-x>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<Leader>h', '^', { noremap = true })
-vim.api.nvim_set_keymap('n', '<Leader>j', '}', { noremap = true })
-vim.api.nvim_set_keymap('n', '<Leader>k', '{', { noremap = true })
-vim.api.nvim_set_keymap('n', '<Leader>l', '$', { noremap = true })
-
--- tab jamp
-vim.api.nvim_set_keymap('n', '<C-h>', ':bprev<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<C-l>', ':bnext<CR>', { noremap = true })
-
--- window split
--- vim.api.nvim_set_keymap('n', '<Leader>\\', ':vs<CR>', { noremap = true })
--- vim.api.nvim_set_keymap('n', '<Leader>-', ':sp<CR>', { noremap = true })
-
--- live_grep
-vim.api.nvim_set_keymap('n', '<Leader><Leader>gr', '<CMD>Telescope live_grep<CR>', { noremap = true })
-vim.keymap.set('n', '<Leader>re', ":cdo s//g | update<left><left><left><left><left><left><left><left><left><left><left>",
-	{})
-
--- rename
-vim.api.nvim_set_keymap('n', '<Leader>ren', '<cmd>lua vim.lsp.buf.rename()<cr>', { noremap = true })
-
--- reload config.lua
-vim.api.nvim_set_keymap('n', '<C-p>', ':source ~/.config/lvim/config.lua<CR>', { noremap = true })
-
--- treeToggle
-vim.api.nvim_set_keymap('n', '<C-n>', ':NvimTreeToggle<CR>', { noremap = true })
+lvim.leader = "space"
+lvim.keys.normal_mode["qq"] = ":q!<CR>"
+lvim.keys.insert_mode["jj"] = "<ESC>"
+lvim.keys.normal_mode["DD"] = ":%d<CR>"
+lvim.keys.normal_mode["U"] = "<C-r>"
+lvim.keys.insert_mode["<C-t>"] = "<Tab>"
+lvim.keys.normal_mode["+"] = "<C-a>"
+lvim.keys.normal_mode["-"] = "<C-x>"
+lvim.builtin.which_key.mappings["h"] = {}
+lvim.builtin.which_key.mappings["l"] = {}
+lvim.keys.normal_mode["<Leader>h"] = "^"
+lvim.keys.normal_mode["<Leader>j"] = "}"
+lvim.keys.normal_mode["<Leader>k"] = "{"
+lvim.keys.normal_mode["<Leader>l"] = "$"
+lvim.keys.normal_mode["<C-h>"] = ":bprev<CR>"
+lvim.keys.normal_mode["<C-l>"] = ":bnext<CR>"
+lvim.keys.normal_mode["<Leader><Leader>gr"] = ":Telescope live_grep<CR>"
+lvim.keys.normal_mode["<Leader>ren"] = ":lua vim.lsp.buf.rename()<CR>"
+lvim.keys.normal_mode["<Leader>re"] =
+":cdo s//g | update<left><left><left><left><left><left><left><left><left><left><left>"
+lvim.keys.normal_mode["<C-p>"] = ":source ~/.config/lvim/config.lua<CR>"
+lvim.keys.normal_mode["<C-n>"] = ":NvimTreeToggle<CR>"
 
 ---- SETTING
 --normal setting
@@ -71,27 +52,14 @@ vim.opt.swapfile = false
 vim.opt.wildmenu = true
 vim.opt.ruler = true
 vim.opt.clipboard:append({ 'unnamedplus' })
---cursor
 vim.opt.cursorline = true
---move
 vim.opt.whichwrap = 'b,s,h,l,<,>,~,[,]'
-
---side number
 vim.opt.number = true
-
 vim.opt.background = 'dark'
-
---search
 vim.opt.hlsearch = true
 vim.opt.incsearch = true
-
---補完の透明度
 vim.opt.winblend = 20
 vim.opt.pumblend = 20
-
--- buffer
--- local bufnr = vim.api.nvim_get_current_buf()
--- vim.api.nvim_buf_set_option(bufnr, 'modifiable', true)
 
 -- vim.cmd('syntax on')
 vim.cmd('highlight VertSplit cterm=none')
@@ -117,11 +85,43 @@ vim.g.colorizer_auto_refresh_by_updatetime = 0
 lvim.colorscheme = "tokyonight-night"
 vim.opt.timeoutlen = 800
 
----- lunarvimの設定の上書き
-
+---- lunarvimの設定の上書き&プラグインの追加
 lvim.plugins = {
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		enabled = false
+	},
+	{
+		"tpope/vim-surround",
+		enabled = true
+	},
+	{
+		"junegunn/rainbow_parentheses.vim",
+		enabled = true
+
+	},
+	{
+		"jorengarenar/vim-SQL-UPPER",
+		enabled = true
 	}
 }
+
+lvim.transparent_window = true
+
+---- lualineの設定
+lvim.builtin.lualine.options.theme = "onedark"
+lvim.builtin.lualine.sections.lualine_a = { "mode" }
+lvim.builtin.lualine.sections.lualine_b = { "branch", "diff", "diagnostics" }
+lvim.builtin.lualine.sections.lualine_c = { "filename" }
+lvim.builtin.lualine.sections.lualine_x = { "searchcount", "selectioncount" }
+lvim.builtin.lualine.sections.lualine_y = { "filetype" }
+lvim.builtin.lualine.sections.lualine_z = { "location" }
+lvim.builtin.lualine.inactive_sections.lualine_a = {}
+lvim.builtin.lualine.inactive_sections.lualine_b = {}
+lvim.builtin.lualine.inactive_sections.lualine_c = { "filename" }
+lvim.builtin.lualine.inactive_sections.lualine_x = { "location" }
+lvim.builtin.lualine.inactive_sections.lualine_y = {}
+lvim.builtin.lualine.inactive_sections.lualine_z = {}
+lvim.builtin.lualine.options.icons_enabled = true
+lvim.builtin.lualine.options.component_separators = { left = "", right = "" }
+lvim.builtin.lualine.options.section_separators = { left = "◣", right = "◢" }
