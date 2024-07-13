@@ -60,30 +60,10 @@ vim.opt.hlsearch = true
 vim.opt.incsearch = true
 vim.opt.winblend = 20
 vim.opt.pumblend = 20
+-- vim.opt.timeoutlen = 800
 
 -- vim.cmd('syntax on')
-vim.cmd('highlight VertSplit cterm=none')
-vim.cmd('highlight Comment ctermfg=6')
 vim.cmd('set clipboard=unnamed,unnamedplus')
-vim.cmd('colorscheme tokyonight-night')
-
--- コメントにマゼンダを設定
-vim.cmd("hi Comment guifg=#FF00FF ctermfg=5")
--- 行番号にレッドを設定
-vim.cmd("hi LineNr guifg=#00FF00 ctermfg=5")
--- 行番号の今いる行番号を黒に設定
-vim.cmd("hi CursorLineNr guifg=#FF0000 ctermfg=5")
--- カーソルの色を指定
-vim.cmd("hi CursorLine guifg=#88FF88 ctermfg=5")
--- 文字列を黄緑に設定
-vim.cmd("hi String guifg=#88FF88 ctermfg=5")
-
--- hexHighlightプラグインを有効にする
-vim.g.colorizer_auto_filetype = 1
-vim.g.colorizer_auto_refresh_by_updatetime = 0
-
-lvim.colorscheme = "tokyonight-night"
-vim.opt.timeoutlen = 800
 
 ---- lunarvimの設定の上書き&プラグインの追加
 lvim.plugins = {
@@ -106,8 +86,6 @@ lvim.plugins = {
 	}
 }
 
-lvim.transparent_window = true
-
 ---- lualineの設定
 lvim.builtin.lualine.options.theme = "onedark"
 lvim.builtin.lualine.sections.lualine_a = { "mode" }
@@ -125,3 +103,21 @@ lvim.builtin.lualine.inactive_sections.lualine_z = {}
 lvim.builtin.lualine.options.icons_enabled = true
 lvim.builtin.lualine.options.component_separators = { left = "", right = "" }
 lvim.builtin.lualine.options.section_separators = { left = "◣", right = "◢" }
+
+---- ColorSchemeのカスタマイズ設定
+lvim.colorscheme = "tokyonight-night"
+lvim.autocommands = {
+	{
+		{ "ColorScheme" },       -- ColorScheme イベントに対する設定
+		{
+			pattern = "tokyonight-night", -- tokyonight-night カラースキームがロードされた際に適用
+			callback = function()
+				vim.cmd("highlight Comment guifg=#FF00FF ctermfg=5")
+				vim.cmd("hi LineNr guifg=#00FF00 ctermfg=5")
+				vim.cmd("hi CursorLineNr guifg=#FF0000 ctermfg=5")
+				vim.cmd("hi CursorLine guifg=#88FF88 ctermfg=5")
+				vim.cmd("hi String guifg=#88FF88 ctermfg=5")
+			end,
+		},
+	},
+}
