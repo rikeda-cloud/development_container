@@ -16,16 +16,17 @@ RUN xargs -a /tmp/core_packages.txt apt-get -y install
 COPY packages/packages.txt /tmp/packages.txt
 RUN xargs -a /tmp/packages.txt apt-get -y install
 
+
 # neovim binaryをインストール
 RUN git clone https://github.com/neovim/neovim.git /neovim && \
-    cd /neovim && \
-    git checkout stable && \
-    make CMAKE_BUILD_TYPE=Release && \
-    make install
+	cd /neovim && \
+	git checkout stable && \
+	make CMAKE_BUILD_TYPE=Release && \
+	make install
 
 # LunarVimのインストール
 RUN curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh -o install.sh && \
-    bash install.sh -- --no-install-dependencies && rm install.sh
+	bash install.sh -- --no-install-dependencies && rm install.sh
 
 # StarShipのインストール
 RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
