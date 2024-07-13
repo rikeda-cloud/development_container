@@ -9,6 +9,8 @@ services:
     build: .
     volumes:
       - /home/${USER}:/root/dev
+      - /home/${USER}/.ssh:/root/.ssh:ro
+      - /home/${USER}/.gitconfig:/root/.gitconfig:ro
     container_name: lvim-tmux
     env_file: .env
     command: ["/bin/bash", "--login"]
