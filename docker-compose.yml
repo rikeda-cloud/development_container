@@ -1,0 +1,14 @@
+# sudo docker-compose up -d
+# docker exec -it lvim-tmux tmux
+
+version: "3"
+services:
+  lvim-tmux:
+    stdin_open: true
+    tty: true
+    build: .
+    volumes:
+      - /home/${USER}:/root/dev
+    container_name: lvim-tmux
+    env_file: .env
+    command: ["/bin/bash", "--login"]

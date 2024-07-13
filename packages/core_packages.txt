@@ -1,0 +1,12 @@
+git
+build-essential
+pip
+npm
+nodejs
+cargo
+ripgrep
+
+tmux
+bash
+curl
+unzip
