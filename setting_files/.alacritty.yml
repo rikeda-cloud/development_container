@@ -1,0 +1,70 @@
+font:
+  size: 12.0
+  normal:
+    family: JetBrainsMonoNL Nerd Font
+    style: Regular
+  bold:
+    family: JetBrainsMonoNL Nerd Font
+    style: Bold
+  italic:
+    family: JetBrainsMonoNL Nerd Font
+    style: Italic
+  bold_italic:
+    family: JetBrainsMonoNL Nerd Font
+    style: Bold Italic
+
+colors:
+  primary:
+    background: '#0000FF'
+    foreground: '#222222'
+  normal:
+    black:   '#10100E'
+    red:     '#C40233'
+    green:   '#009F6B'
+    yellow:  '#FFD700'
+    blue:    '#0087BD'
+    magenta: '#9A4EAE'
+    cyan:    '#20B2AA'
+    white:   '#C6C6C4'
+  bright:
+    black:   '#696969'
+    red:     '#FF2400'
+    green:   '#03C03C'
+    yellow:  '#FDFF00'
+    blue:    '#007FFF'
+    magenta: '#FF1493'
+    cyan:    '#00CCCC'
+  cursor:
+    cursor: '#FF00FF'
+    text: '#00FF00'
+  vi_mode_cursor:
+    cursor: '#00FF00'
+    text: '#FF00FF'
+
+cursor:
+  style:
+    shape: Block
+  unfocused_hollow: false
+
+
+
+live_config_reload: true
+
+selection:
+  save_to_clipboard: true
+
+window:
+  decorations: none
+  startup_mode: Maximized
+  opacity: 0.15
+
+shell:
+  program: docker
+  args:
+    - exec
+    - -it
+    - lvim-tmux
+    - tmux
+
+env:
+  TERM: alacritty
