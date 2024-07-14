@@ -10,8 +10,7 @@ services:
       context: .
     volumes:
       - /home/${USER}:/root/dev
-      - /home/${USER}/.ssh:/root/.ssh
-      - /home/${USER}/.gitconfig:/root/.gitconfig
+      - /home/${USER}/.ssh/id_rsa:/root/.ssh/id_rsa
     container_name: lvim-tmux
     env_file: .env
     command: ["/bin/bash", "--login"]

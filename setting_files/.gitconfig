@@ -1,0 +1,13 @@
+[user]
+	name = rikeda-cloud
+	email = longsichitian648@gmail.com
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+
+[alias]
+	ss = status
+	logg = log --oneline --graph
+[core]
+	editor = nvim
