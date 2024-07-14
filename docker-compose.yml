@@ -6,11 +6,12 @@ services:
   lvim-tmux:
     stdin_open: true
     tty: true
-    build: .
+    build:
+      context: .
     volumes:
       - /home/${USER}:/root/dev
-      - /home/${USER}/.ssh:/root/.ssh:ro
-      - /home/${USER}/.gitconfig:/root/.gitconfig:ro
+      - /home/${USER}/.ssh:/root/.ssh
+      - /home/${USER}/.gitconfig:/root/.gitconfig
     container_name: lvim-tmux
     env_file: .env
     command: ["/bin/bash", "--login"]

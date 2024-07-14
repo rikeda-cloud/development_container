@@ -12,12 +12,7 @@ RUN apt-get -y update && apt-get -y upgrade
 COPY packages/core_packages.txt /tmp/core_packages.txt
 RUN xargs -a /tmp/core_packages.txt apt-get -y install
 
-# カスタムパッケージのインストール
-COPY packages/packages.txt /tmp/packages.txt
-RUN xargs -a /tmp/packages.txt apt-get -y install
-
-
-# neovim binaryをインストール
+# neovimをインストール
 RUN git clone https://github.com/neovim/neovim.git /neovim && \
 	cd /neovim && \
 	git checkout stable && \
@@ -26,11 +21,16 @@ RUN git clone https://github.com/neovim/neovim.git /neovim && \
 
 # LunarVimのインストール
 RUN curl -s https://raw.githubusercontent.com/lunarvim/lunarvim/master/utils/installer/install.sh -o install.sh && \
-	bash install.sh -- --no-install-dependencies && rm install.sh
+	bash install.sh -- --no-install-dependencies && \
+	rm install.sh
 
 # StarShipのインストール
-RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes
-RUN starship preset no-runtime-versions -o /root/.config/starship.toml
+RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes && \
+	starship preset no-runtime-versions -o /root/.config/starship.toml
+
+# カスタムパッケージのインストール
+COPY packages/packages.txt /tmp/packages.txt
+RUN xargs -a /tmp/packages.txt apt-get -y install
 
 # configfileのCOPY
 COPY setting_files/.profile setting_files/.bashrc setting_files/.tmux.conf setting_files/.tmux.start.conf /root/

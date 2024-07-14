@@ -22,11 +22,9 @@ lvim.keys.normal_mode["<Leader><Leader>gr"] = ":Telescope live_grep<CR>"
 lvim.keys.normal_mode["<Leader>ren"] = ":lua vim.lsp.buf.rename()<CR>"
 lvim.keys.normal_mode["<Leader>re"] =
 ":cdo s//g | update<left><left><left><left><left><left><left><left><left><left><left>"
-lvim.keys.normal_mode["<C-p>"] = ":source ~/.config/lvim/config.lua<CR>"
 lvim.keys.normal_mode["<C-n>"] = ":NvimTreeToggle<CR>"
 
 ---- SETTING
---normal setting
 vim.opt.expandtab = false
 vim.opt.encoding = 'utf-8'
 vim.opt.history = 100
@@ -61,7 +59,6 @@ vim.opt.incsearch = true
 vim.opt.winblend = 20
 vim.opt.pumblend = 20
 -- vim.opt.timeoutlen = 800
-
 -- vim.cmd('syntax on')
 vim.cmd('set clipboard=unnamed,unnamedplus')
 
@@ -82,6 +79,15 @@ lvim.plugins = {
 	},
 	{
 		"jorengarenar/vim-SQL-UPPER",
+		enabled = true
+	},
+	{
+		"andymass/vim-matchup",
+		event = 'VimEnter',
+		enabled = true
+	},
+	{
+		"MTDL9/vim-log-highlighting",
 		enabled = true
 	}
 }
@@ -120,4 +126,15 @@ lvim.autocommands = {
 			end,
 		},
 	},
+}
+
+---- alphaのカスタマイズ設定
+lvim.builtin.alpha.dashboard.section.buttons.entries = {
+	{ "ft", lvim.icons.ui.FindText .. "  Find Text", "<CMD>Telescope live_grep <CR>" },
+	{ "ff", lvim.icons.ui.FindFile .. "  Find File", "<CMD>Telescope find_files <CR>" },
+	{ "p", lvim.icons.ui.Project .. "  Projects ", "<CMD>Telescope projects<CR>" },
+	{ "r", lvim.icons.ui.History .. "  Recently files", ":Telescope oldfiles <CR>" },
+	{ "cl", lvim.icons.ui.Gear .. "  edit config.lua", ":e ~/.config/lvim/config.lua<CR>" },
+	{ "new", lvim.icons.ui.NewFile .. "  New file", "<CMD>ene!<CR>" },
+	{ "q", "💣  Quit", "<CMD>quit<CR>" },
 }
