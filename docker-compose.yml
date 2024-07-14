@@ -11,6 +11,7 @@ services:
     volumes:
       - /home/${USER}:/root/dev
       - /home/${USER}/.ssh/id_rsa:/root/.ssh/id_rsa
+      - /tmp/.X11-unix:/tmp/.X11-unix
     container_name: lvim-tmux
     env_file: .env
     command: ["/bin/bash", "--login"]

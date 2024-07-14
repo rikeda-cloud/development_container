@@ -33,5 +33,5 @@ COPY packages/packages.txt /tmp/packages.txt
 RUN xargs -a /tmp/packages.txt apt-get -y install
 
 # configfileのCOPY
-COPY setting_files/.gitconfig setting_files/.profile setting_files/.bashrc setting_files/.tmux.conf setting_files/.tmux.start.conf /root/
+COPY setting_files/.alacritty.yml setting_files/.gitconfig setting_files/.profile setting_files/.bashrc setting_files/.tmux.conf setting_files/.tmux.start.conf /root/
 COPY setting_files/config.lua /root/.config/lvim/

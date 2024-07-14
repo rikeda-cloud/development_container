@@ -1,3 +1,5 @@
 tree
 htop
 python3-venv
+alacritty
+x11-apps
