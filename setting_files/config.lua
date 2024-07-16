@@ -58,7 +58,7 @@ vim.opt.hlsearch = true
 vim.opt.incsearch = true
 vim.opt.winblend = 20
 vim.opt.pumblend = 20
--- vim.opt.timeoutlen = 800
+vim.opt.timeoutlen = 300
 -- vim.cmd('syntax on')
 vim.cmd('set clipboard=unnamed,unnamedplus')
 
@@ -121,7 +121,7 @@ lvim.autocommands = {
 				vim.cmd("highlight Comment guifg=#FF00FF ctermfg=5")
 				vim.cmd("hi LineNr guifg=#00FF00 ctermfg=5")
 				vim.cmd("hi CursorLineNr guifg=#FF0000 ctermfg=5")
-				vim.cmd("hi CursorLine guifg=#88FF88 ctermfg=5")
+				-- vim.cmd("hi CursorLine guifg=#88FF88 ctermfg=5")
 				vim.cmd("hi String guifg=#88FF88 ctermfg=5")
 			end,
 		},
@@ -137,4 +137,32 @@ lvim.builtin.alpha.dashboard.section.buttons.entries = {
 	{ "cl", lvim.icons.ui.Gear .. "  edit config.lua", ":e ~/.config/lvim/config.lua<CR>" },
 	{ "new", lvim.icons.ui.NewFile .. "  New file", "<CMD>ene!<CR>" },
 	{ "q", "💣  Quit", "<CMD>quit<CR>" },
+}
+
+
+lvim.builtin.which_key.mappings['m'] = {
+	name = "LSP",
+	a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
+	d = { "<cmd>Telescope diagnostics bufnr=0 theme=get_ivy<cr>", "Buffer Diagnostics" },
+	w = { "<cmd>Telescope diagnostics<cr>", "Diagnostics" },
+	f = { "<cmd>lua require('lvim.lsp.utils').format()<cr>", "Format" },
+	i = { "<cmd>LspInfo<cr>", "Info" },
+	I = { "<cmd>Mason<cr>", "Mason Info" },
+	j = {
+		"<cmd>lua vim.diagnostic.goto_next()<cr>",
+		"Next Diagnostic",
+	},
+	k = {
+		"<cmd>lua vim.diagnostic.goto_prev()<cr>",
+		"Prev Diagnostic",
+	},
+	l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
+	q = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Quickfix" },
+	r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
+	s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
+	S = {
+		"<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
+		"Workspace Symbols",
+	},
+	e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
 }
