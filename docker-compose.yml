@@ -8,9 +8,13 @@ services:
     tty: true
     build:
       context: .
+      args:
+        - USER=${USER}
+        - UID=${UID}
+        - GID=${GID}
     volumes:
-      - /home/${USER}:/root/dev
-      - /home/${USER}/.ssh/id_rsa:/root/.ssh/id_rsa
+      - /home/${USER}:/home/${USER}/dev
+      - /home/${USER}/.ssh/id_rsa:/home/${USER}/.ssh/id_rsa
     container_name: lvim-tmux
     env_file: .env
     command: ["/bin/bash", "--login"]
