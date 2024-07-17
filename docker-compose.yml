@@ -1,5 +1,7 @@
-# sudo docker-compose up -d
-# docker exec -it lvim-tmux tmux
+# export GID=$(id -g) UID=$(id -u)
+# sudo env USER=$USER UID=$UID GID=$GID docker-compose up -d --build
+# docker compose up -d --build
+# docker exec -it lvim-tmux tmux new-session -s mysession /bin/bash -c "umask 0000 && /bin/bash --login"
 
 version: "3"
 services:
@@ -14,7 +16,7 @@ services:
         - GID=${GID}
     volumes:
       - /home/${USER}:/home/${USER}/dev
-      - /home/${USER}/.ssh/id_rsa:/home/${USER}/.ssh/id_rsa
+      - /home/${USER}/.ssh/:/home/${USER}/.ssh/
     container_name: lvim-tmux
     env_file: .env
     command: ["/bin/bash", "--login"]
