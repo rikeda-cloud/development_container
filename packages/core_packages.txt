@@ -3,7 +3,6 @@ build-essential
 pip
 npm
 nodejs
-cargo
 ripgrep
 cmake
 gettext
