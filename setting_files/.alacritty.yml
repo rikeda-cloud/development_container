@@ -54,7 +54,7 @@ selection:
   save_to_clipboard: true
 
 window:
-  decorations: none
+  decorations: None
   startup_mode: Maximized
   opacity: 0.15
 
@@ -65,6 +65,12 @@ shell:
     - -it
     - lvim-tmux
     - tmux
+    - new-session
+    - -s
+    - mysession
+    - /bin/bash
+    - -c
+    - "umask 0000 && /bin/bash --login"
 
 env:
   TERM: alacritty
