@@ -6,6 +6,7 @@ nodejs
 ripgrep
 cmake
 gettext
+sudo
 
 tmux
 bash
