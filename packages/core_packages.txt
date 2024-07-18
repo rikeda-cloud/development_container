@@ -9,6 +9,8 @@ gettext
 sudo
 llvm
 clangd
+locales
+locales-all
 
 tmux
 bash

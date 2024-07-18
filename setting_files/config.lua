@@ -1,6 +1,5 @@
 ---- AUTO SAVE
 lvim.format_on_save.enabled = true
-
 ---- KEYMAP
 lvim.leader = "space"
 lvim.keys.normal_mode["qq"] = ":q!<CR>"
@@ -22,7 +21,10 @@ lvim.keys.normal_mode["<Leader><Leader>gr"] = ":Telescope live_grep<CR>"
 lvim.keys.normal_mode["<Leader>ren"] = ":lua vim.lsp.buf.rename()<CR>"
 lvim.keys.normal_mode["<Leader>re"] =
 ":cdo s//g | update<left><left><left><left><left><left><left><left><left><left><left>"
+---- NvimTree
 lvim.keys.normal_mode["<C-n>"] = ":NvimTreeToggle<CR>"
+---- SymbolsOutline
+lvim.keys.normal_mode["<Leader>ss"] = ":SymbolsOutline<CR>"
 
 ---- SETTING
 vim.opt.expandtab = false
@@ -73,24 +75,49 @@ lvim.plugins = {
 		enabled = true
 	},
 	{
-		"junegunn/rainbow_parentheses.vim",
-		enabled = true
-
+		"mrjones2014/nvim-ts-rainbow",
 	},
 	{
 		"jorengarenar/vim-SQL-UPPER",
 		enabled = true
 	},
 	{
-		"andymass/vim-matchup",
-		event = 'VimEnter',
+		"MTDL9/vim-log-highlighting",
 		enabled = true
 	},
 	{
-		"MTDL9/vim-log-highlighting",
-		enabled = true
-	}
+		"norcalli/nvim-colorizer.lua",
+		enabled = true,
+		config = function()
+			require("colorizer").setup({ "*" }, {
+				RGB = true,
+				RRGGBB = true,
+				RRGGBBAA = true,
+				rgb_fn = true,
+				hsl_fn = true,
+				css = true,
+				css_fn = true,
+			})
+		end,
+	},
+	{
+		"simrat39/symbols-outline.nvim",
+		config = function()
+			require('symbols-outline').setup({
+				width = 40,
+			})
+		end
+	},
+	{
+		"windwp/nvim-ts-autotag",
+		config = function()
+			require("nvim-ts-autotag").setup()
+		end,
+	},
 }
+
+-- enable treesitter integration
+lvim.builtin.treesitter.rainbow.enable = true
 
 ---- lualineの設定
 lvim.builtin.lualine.options.theme = "onedark"
@@ -119,10 +146,16 @@ lvim.autocommands = {
 			pattern = "tokyonight-night", -- tokyonight-night カラースキームがロードされた際に適用
 			callback = function()
 				vim.cmd("highlight Comment guifg=#FF00FF ctermfg=5")
-				vim.cmd("hi LineNr guifg=#00FF00 ctermfg=5")
+				vim.cmd("hi LineNr guifg=#00FFFF ctermfg=5")
 				vim.cmd("hi CursorLineNr guifg=#FF0000 ctermfg=5")
-				-- vim.cmd("hi CursorLine guifg=#88FF88 ctermfg=5")
 				vim.cmd("hi String guifg=#88FF88 ctermfg=5")
+				vim.cmd("hi rainbowcol1 guifg=Orange") -- Orange
+				vim.cmd("hi rainbowcol2 guifg=#66FF66") -- Light Green
+				vim.cmd("hi rainbowcol3 guifg=#6699FF") -- Light Blue
+				vim.cmd("hi rainbowcol4 guifg=#FF66FF") -- Light Purple
+				vim.cmd("hi rainbowcol5 guifg=#FFCC33") -- Yellow
+				vim.cmd("hi rainbowcol6 guifg=#66CCCC") -- Light Cyan
+				vim.cmd("hi rainbowcol7 guifg=#FF9966") -- Coral
 			end,
 		},
 	},
