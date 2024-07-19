@@ -1,6 +1,6 @@
 FROM debian:stable-slim
 LABEL maintainer="rikeda"
-LABEL version="2.1"
+LABEL version="2.2"
 
 ARG USER
 ARG UID
