@@ -64,13 +64,17 @@ shell:
     - exec
     - -it
     - lvim-tmux
-    - tmux
-    - new-session
-    - -s
-    - mysession
-    - /bin/bash
+    - bash
     - -c
-    - "umask 0000 && /bin/bash --login"
+    - |
+      SESSION_NAME=mysession
+      if tmux has-session -t $SESSION_NAME 2>/dev/null; then
+        tmux attach-session -t $SESSION_NAME
+      else
+        tmux new-session -d -s $SESSION_NAME /bin/bash -c 'umask 0000 && /bin/bash --login'
+        tmux attach-session -t $SESSION_NAME
+      fi
+
 
 env:
   TERM: alacritty
