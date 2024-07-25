@@ -8,6 +8,7 @@ services:
   lvim-tmux:
     stdin_open: true
     tty: true
+    restart: always
     build:
       context: .
       args:
