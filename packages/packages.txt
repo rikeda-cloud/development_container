@@ -1,3 +1,4 @@
 tree
 htop
 python3-venv
+fd-find

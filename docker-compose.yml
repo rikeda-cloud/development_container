@@ -1,14 +1,7 @@
-# export GID=$(id -g) UID=$(id -u)
-# sudo env USER=$USER UID=$UID GID=$GID docker-compose up -d --build
-# docker compose up -d --build
-# docker exec -it lvim-tmux tmux new-session -s mysession /bin/bash -c "umask 0000 && /bin/bash --login"
-
-version: "3"
 services:
   lvim-tmux:
-    stdin_open: true
-    tty: true
-    restart: always
+    container_name: lvim-tmux
+    image: lvim-tmux
     build:
       context: .
       args:
@@ -18,6 +11,16 @@ services:
     volumes:
       - /home/${USER}:/home/${USER}/dev
       - /home/${USER}/.ssh/:/home/${USER}/.ssh/
-    container_name: lvim-tmux
+    stdin_open: true
+    tty: true
+    restart: always
+    environment:
+      - GIT_CONFIG_GLOBAL=/home/${USER}/.gitconfig
     env_file: .env
     command: ["/bin/bash", "--login"]
+    init: true
+    networks:
+      - lvim-tmux-network
+
+networks:
+  lvim-tmux-network: {name: lvim-tmux-network}

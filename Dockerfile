@@ -2,18 +2,14 @@ FROM debian:stable-slim
 LABEL maintainer="rikeda"
 LABEL version="2.2"
 
-ARG USER
-ARG UID
-ARG GID
-
-RUN apt-get -y update && apt-get -y upgrade
-
 # 必須パッケージのインストール
 COPY packages/core_packages.txt /tmp/
-RUN xargs -a /tmp/core_packages.txt apt-get -y install
+RUN apt-get -y update && xargs -a /tmp/core_packages.txt apt-get -y install
 
 # ロケールの追加
 RUN localedef -f UTF-8 -i ja_JP ja_JP.UTF-8
+
+ARG USER UID GID
 
 # ユーザーを作成し、sudo権限を付与
 RUN groupadd -g $GID ${USER} && \
@@ -40,9 +36,8 @@ RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes && \
 
 # カスタムパッケージのインストール
 COPY packages/packages.txt /tmp/
-RUN xargs -a /tmp/packages.txt apt-get -y install
-
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN xargs -a /tmp/packages.txt apt-get -y install && \
+	rm -rf /var/lib/apt/lists/*
 
 # 以降のコマンドを作成したユーザーで実行・ログインユーザーを指定
 USER ${USER}
@@ -59,8 +54,3 @@ RUN curl https://sh.rustup.rs -sSf | sh -s -- -y
 # configfileのCOPY
 COPY setting_files/.gitconfig setting_files/.profile setting_files/.bashrc setting_files/.tmux.conf setting_files/.tmux.start.conf /home/${USER}/
 COPY setting_files/config.lua /home/${USER}/.config/lvim/
-
-# .envファイルでは動的に環境変数を設定できないためDockerfileで記述
-ENV GIT_CONFIG_GLOBAL /home/${USER}/.gitconfig
-
-CMD ["/bin/bash", "--login"]

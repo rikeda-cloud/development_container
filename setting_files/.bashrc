@@ -66,7 +66,8 @@ alias v='lvim'
 alias vi='lvim'
 alias vim='lvim'
 alias nvim='lvim'
-alias nconf='cd ~/.local/share/lunarvim/lvim'
+alias nconf='cd ~/.config/lvim/'
+alias find='fdfind'
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
