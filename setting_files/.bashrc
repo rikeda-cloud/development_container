@@ -68,6 +68,8 @@ alias vim='lvim'
 alias nvim='lvim'
 alias nconf='cd ~/.config/lvim/'
 alias find='fdfind'
+alias gco='git checkout $(git branch | peco)'
+
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -89,3 +91,4 @@ export LS_COLORS="di=38;5;95:*.txt=38;5;0:*.sh=38;5;208:*.c=38;5;190:*.cpp=38;5;
 set -o vi
 
 eval "$(starship init bash)"
+export PATH+=":/usr/local/go/bin"
