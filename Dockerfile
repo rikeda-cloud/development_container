@@ -31,7 +31,7 @@ RUN git clone https://github.com/neovim/neovim.git /tmp/neovim && \
 	rm -rf /tmp/neovim
 
 # StarShipのインストール
-RUN curl -sS https://starship.rs/install.sh | sh -s -- --yes && \
+RUN curl -sS https://starship.rs/install.sh | sh -s -- -y && \
 	starship preset gruvbox-rainbow -o /home/${USER}/.config/starship.toml
 
 # カスタムパッケージのインストール
