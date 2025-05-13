@@ -132,6 +132,15 @@ lvim.plugins = {
 			require("copilot_cmp").setup()
 		end,
 	},
+	{
+		"CopilotC-Nvim/CopilotChat.nvim",
+		branch = "main",
+		dependencies = {
+			{ "zbirenbaum/copilot.lua" },
+			{ "nvim-lua/plenary.nvim" },
+		},
+		build = "make tiktoken",
+	},
 }
 
 -- enable treesitter integration
@@ -190,7 +199,6 @@ lvim.builtin.alpha.dashboard.section.buttons.entries = {
 	{ "q", "💣  Quit", "<CMD>quit<CR>" },
 }
 
-
 lvim.builtin.which_key.mappings['m'] = {
 	name = "LSP",
 	a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
@@ -216,4 +224,103 @@ lvim.builtin.which_key.mappings['m'] = {
 		"Workspace Symbols",
 	},
 	e = { "<cmd>Telescope quickfix<cr>", "Telescope Quickfix" },
+}
+
+---- CopilotChat の設定
+local ok, copilot_chat = pcall(require, "CopilotChat")
+if ok then
+	copilot_chat.setup({
+		show_help = "yes",
+	})
+end
+
+-- CopilotChat のキーマッピング(Visualモード)
+local chat = require("CopilotChat")
+lvim.builtin.which_key.vmappings["c"] = {
+	name = "CopilotChat", -- which_key のグループ名
+
+	e = {
+		function()
+			local text = vim.fn.getreg('"') -- Visualモードで選択されたテキストを取得
+			local prompt = "/COPILOT_EXPLAIN コードを日本語で説明してください。\n\n" .. text
+			chat.ask(prompt)
+		end,
+		"コードの説明"
+	},
+
+	r = {
+		function()
+			local text = vim.fn.getreg('"')
+			local prompt = "/COPILOT_REVIEW コードを日本語でレビューしてください。\n\n" .. text
+			chat.ask(prompt)
+		end,
+		"コードのレビュー"
+	},
+
+	f = {
+		function()
+			local text = vim.fn.getreg('"')
+			local prompt = "/COPILOT_FIX このコードには問題があります。バグを修正したコードを表示してください。説明は日本語でお願いします。\n\n" .. text
+			chat.ask(prompt)
+		end,
+		"コードの修正"
+	},
+
+	o = {
+		function()
+			local text = vim.fn.getreg('"')
+			local prompt = "/COPILOT_REFACTOR 選択したコードを最適化し、パフォーマンスと可読性を向上させてください。説明は日本語でお願いします。\n\n" .. text
+			chat.ask(prompt)
+		end,
+		"コードの最適化"
+	},
+
+	d = {
+		function()
+			local text = vim.fn.getreg('"')
+			local prompt = "/COPILOT_GENERATE 選択したコードに関するドキュメントコメントを日本語で生成してください。\n\n" .. text
+			chat.ask(prompt)
+		end,
+		"ドキュメント生成"
+	},
+
+	t = {
+		function()
+			local text = vim.fn.getreg('"')
+			local prompt = "/COPILOT_TESTS 選択したコードの詳細なユニットテストを書いてください。説明は日本語でお願いします。\n\n" .. text
+			chat.ask(prompt)
+		end,
+		"テスト作成"
+	},
+
+}
+
+-- CopilotChat のキーマッピング(Normalモード)
+lvim.builtin.which_key.mappings["c"] = {
+	name = "CopilotChat",
+
+	D = {
+		function()
+			local diagnostics = vim.diagnostic.get(0) -- 現在のバッファの診断を取得
+			if not diagnostics or vim.tbl_isempty(diagnostics) then
+				vim.notify("診断メッセージが見つかりませんでした", vim.log.levels.WARN)
+				return
+			end
+
+			local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+			local text = ""
+
+			for _, d in ipairs(diagnostics) do
+				local lnum = d.lnum
+				local message = d.message or "(メッセージなし)"
+				local line_text = lines[lnum + 1] or "(コード行が存在しません)"
+				text = text .. string.format("【%d行目】%s\n%s\n\n", lnum + 1, message, line_text)
+			end
+
+			local prompt = "次の診断メッセージと該当コードを修正してください。説明は日本語でお願いします。\n\n" .. text
+
+			chat.ask(prompt)
+		end,
+		"エラーを診断に従って修正",
+	},
 }
