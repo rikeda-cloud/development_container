@@ -114,6 +114,24 @@ lvim.plugins = {
 			require("nvim-ts-autotag").setup()
 		end,
 	},
+	{
+		"zbirenbaum/copilot.lua",
+		cmd = "Copilot",
+		event = "InsertEnter",
+		config = function()
+			require("copilot").setup({
+				suggestion = { enabled = true },
+				panel = { enabled = true },
+			})
+		end,
+	},
+	{
+		"zbirenbaum/copilot-cmp",
+		after = { "copilot.lua" },
+		config = function()
+			require("copilot_cmp").setup()
+		end,
+	},
 }
 
 -- enable treesitter integration
