@@ -5,6 +5,8 @@ LABEL version="2.2"
 # 必須パッケージのインストール
 COPY packages/core_packages.txt /tmp/
 RUN apt-get -y update && xargs -a /tmp/core_packages.txt apt-get -y install
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+RUN apt-get install -y nodejs
 
 # ロケールの追加
 RUN localedef -f UTF-8 -i ja_JP ja_JP.UTF-8
