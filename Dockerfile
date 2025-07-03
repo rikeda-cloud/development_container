@@ -27,7 +27,7 @@ RUN mkdir -p /home/${USER}/.local && \
 # neovimをインストール
 RUN git clone https://github.com/neovim/neovim.git /tmp/neovim && \
 	cd /tmp/neovim && \
-	git checkout stable && \
+	git checkout v0.10.4 && \
 	make CMAKE_BUILD_TYPE=Release && \
 	make install && \
 	rm -rf /tmp/neovim
