@@ -76,6 +76,7 @@ lvim.plugins = {
 	},
 	{
 		"mrjones2014/nvim-ts-rainbow",
+		enabled = false
 	},
 	{
 		"jorengarenar/vim-SQL-UPPER",
