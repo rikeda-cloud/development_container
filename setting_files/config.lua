@@ -64,6 +64,17 @@ vim.opt.timeoutlen = 300
 -- vim.cmd('syntax on')
 vim.cmd('set clipboard=unnamed,unnamedplus')
 
+---- For TypeScript/JavaScript Indent Settings
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "javascript", "typescript", "javascriptreact", "typescriptreact" },
+	callback = function(args)
+		vim.bo[args.buf].expandtab = true
+		vim.bo[args.buf].shiftwidth = 2
+		vim.bo[args.buf].tabstop = 2
+		vim.bo[args.buf].softtabstop = 2
+	end,
+})
+
 ---- lunarvimの設定の上書き&プラグインの追加
 lvim.plugins = {
 	{
