@@ -15,7 +15,7 @@ font:
 
 colors:
   primary:
-    background: '#0000FF'
+    background: '#00FFFF'
     foreground: '#222222'
   normal:
     black:   '#10100E'
@@ -56,7 +56,7 @@ selection:
 window:
   decorations: None
   startup_mode: Maximized
-  opacity: 0.15
+  opacity: 0.4
 
 shell:
   program: docker
