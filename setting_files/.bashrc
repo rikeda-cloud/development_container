@@ -68,7 +68,7 @@ alias vim='lvim'
 alias nvim='lvim'
 alias nconf='cd ~/.config/lvim/'
 alias find='fdfind'
-alias gco='git checkout $(git branch | peco)'
+alias gco='git checkout $(git branch | fzf)'
 
 
 if [ -f ~/.bash_aliases ]; then
